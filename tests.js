@@ -1,4 +1,6 @@
 test('Order WITH unintentional side effect.', function () {
+
+
   var cartProto = {
       items: [],
 
@@ -24,6 +26,10 @@ test('Order WITH unintentional side effect.', function () {
       // Grab the saved cart.
       cart: createCart(savedCart.items)
     };
+
+    console.log(cartProto)
+    console.log(session)
+    console.log(savedCart)
 
   // addItem gets triggered by an event handler somewhere:
   session.cart.addItem('grapefruit');
