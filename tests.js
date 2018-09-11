@@ -1,42 +1,14 @@
-test('Order WITH unintentional side effect.', function () {
+test('Named function expressions.', function () {
+  var a = function x () {
+    ok(x, 'x() is usable inside the function.');
+  };
 
-  var cartProto = {
-      items: [],
+  a();
 
-      addItem: function addItem(item) {
-        this.items.push(item);
-      }
-    },
-
-    createCart = function (items) {
-      var cart = Object.create(cartProto);
-      cart.items = items;
-      // cart.items = items;
-      return cart;
-    },
-
-    // Load cart with stored items.
-    savedCart = createCart(["apple", "pear", "orange"]),
-
-    session = {
-      get: function get() {
-        return this.cart;
-      },
-
-      // Grab the saved cart.
-      cart: createCart(savedCart.items)
-    };
-
-    console.log(cartProto)
-    console.log(session)
-    console.log(savedCart)
-
-  // addItem gets triggered by an event handler somewhere:
-  session.cart.addItem('grapefruit');
-
-  ok(session.cart.items.indexOf('grapefruit')
-    !== -1, 'Passes: Session cart has grapefruit.');
-
-  ok(savedCart.items.indexOf('grapefruit') === -1,
-    'Fails: The stored cart is unchanged.');
+  try {
+    x(); // Error
+  } catch (e) {
+    ok(true, 'x() is undefined outside the function.');
+  }
 });
+    
