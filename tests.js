@@ -1,6 +1,5 @@
 test('Order WITH unintentional side effect.', function () {
 
-
   var cartProto = {
       items: [],
 
@@ -12,6 +11,7 @@ test('Order WITH unintentional side effect.', function () {
     createCart = function (items) {
       var cart = Object.create(cartProto);
       cart.items = items;
+      // cart.items = items;
       return cart;
     },
 
